@@ -1,8 +1,11 @@
 
+import Landing from "./Pages/Landing";
 
 function App() {
   return (
-    <h1>Jobify</h1>
+    <div> 
+      <Landing />
+    </div>
   );
 }
 
