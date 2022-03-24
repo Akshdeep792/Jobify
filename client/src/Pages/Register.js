@@ -1,34 +1,35 @@
 import { useState } from 'react'
 import { Logo, Input, Alert } from '../components'
 import Wrapper from '../assets/wrappers/RegisterPage'
-
+import { useAppContext } from '../context/appContext'
 
 const initialState = {
     name: '',
     email: '',
     password: '',
     isMember: true,
-    showAlert: false
+
 }
 
 
 const Register = () => {
     const [values, setValues] = useState(initialState)
+    const { isLoading, showAlert, displayAlert } = useAppContext()
 
 
-
-    const onChangeHandler = (event) => {
-        console.log(event.target)
-        
-        setValues({
-           
-        })
+    const onChangeHandler = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value })
 
     }
 
     const onSubmitHandler = (event) => {
         event.preventDefault()
-        console.log(event.target)
+        const { name, email, password, isMember } = values
+        if (!email || !password || (!isMember && !name)) {
+            displayAlert()
+            return
+        }
+        console.log(values)
     }
     const toggleHandler = () => {
         setValues({ ...values, isMember: !values.isMember })
@@ -38,7 +39,7 @@ const Register = () => {
             <form className='form' onSubmit={onSubmitHandler}>
                 <Logo />
                 <h3>{values.isMember ? 'Login' : 'Register'}</h3>
-                {values.showAlert && <Alert />}
+                {showAlert && <Alert />}
                 {/* name field */}
                 {!values.isMember && <Input type='text' value={values.name} name='name' onChange={onChangeHandler} />}
                 <Input type='email' value={values.email} name='email' onChange={onChangeHandler} />
