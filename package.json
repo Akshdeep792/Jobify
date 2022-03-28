@@ -1,0 +1,31 @@
+{
+  "name": "jobify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akshdeep792/Jobify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akshdeep792/Jobify/issues"
+  },
+  "homepage": "https://github.com/Akshdeep792/Jobify#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "http-status-codes": "^2.2.0",
+    "mongoose": "^6.2.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
