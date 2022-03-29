@@ -22,8 +22,10 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "express-async-error": "^0.0.2",
     "http-status-codes": "^2.2.0",
-    "mongoose": "^6.2.8"
+    "mongoose": "^6.2.8",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
