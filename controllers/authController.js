@@ -2,12 +2,8 @@ import User from "../models/User.js"
 import { StatusCodes } from 'http-status-codes'
 import {BadRequestError} from '../errors/index.js'
 // require('express-async-errors')
-class CustomAPIError extends Error{
-    constructor(message){
-        super(message)
-        this.StatusCodes = StatusCodes.BAD_REQUEST
-    }
-}
+
+
 
 const register = async (req,res) => {
         const {name, email, password} = req.body;
@@ -19,7 +15,13 @@ const register = async (req,res) => {
             throw new BadRequestError('Email already exists')
         }
         const user = await User.create(req.body);
-        res.status(StatusCodes.OK).json({user});
+        const token  = user.createJWT();
+        res.status(StatusCodes.OK).json({user : {
+            email : user.email,
+            lastName: user.lastName,
+            location : user.location,
+            name: user.name
+        }, token, location : user.location});
 }
 
 const login = async (req,res) => {
