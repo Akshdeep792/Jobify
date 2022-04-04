@@ -2,7 +2,7 @@ import express from 'express'
 const app = express()
 import dotenv from 'dotenv'
 import 'express-async-errors'
-import 'morgan'
+import morgan from 'morgan'
 dotenv.config();
 //db and authenticate user
 import connectDB from './db/connect-db.js';
@@ -39,7 +39,7 @@ app.use('/api/v1/jobs', jobRouter)
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware)
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 4000
 
 
 const start = async () => {
