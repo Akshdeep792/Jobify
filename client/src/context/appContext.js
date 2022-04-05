@@ -8,7 +8,9 @@ import
    REGISTER_USER_SUCCESS,
    LOGIN_USER_BEGIN,
    LOGIN_USER_SUCCESS,
-   LOGIN_USER_ERROR 
+   LOGIN_USER_ERROR,
+   TOGGLE_SIDEBAR,
+   LOGOUT_USER
   } from "./action"
 import axios from 'axios'
 
@@ -24,7 +26,9 @@ export const initialState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   userLocation: userLocation || '',
-  jobLocation: userLocation || ''
+  jobLocation: userLocation || '',
+  showSidebar: false,
+
 
 }
 const AppContext = React.createContext()
@@ -48,10 +52,10 @@ const AppProvider = ({ children }) => {
     localStorage.setItem('token', token);
     localStorage.setItem('location', location)
   }
-  const removeUserToLocalStorage = () => {
-    localStorage.setItem('user')
-    localStorage.setItem('token');
-    localStorage.setItem('location')
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user')
+    localStorage.removeItem('location')
   }
   const registerUser = async (currentUser) => {
     // console.log(currentUser);
@@ -95,10 +99,19 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   }
+
+  const toggleSidebar = () => {
+    dispatch({type : TOGGLE_SIDEBAR})
+  }
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER })
+    removeUserFromLocalStorage();
+  }
+  
   return (
     <AppContext.Provider
       value={{
-        ...state, displayAlert, registerUser, loginUser
+        ...state, displayAlert, registerUser, loginUser, toggleSidebar, logoutUser
       }}
     >
       {children}

@@ -36,7 +36,7 @@ const Register = () => {
         else{
             registerUser(currentUser)
         }
-        console.log(values)
+        // console.log(values)
     }
     const toggleHandler = () => {
         setValues({ ...values, isMember: !values.isMember })
