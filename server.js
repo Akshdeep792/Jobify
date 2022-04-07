@@ -12,9 +12,11 @@ const connectionString = process.env.MONGO_URL
 import authRouter from './routes/auth-routes.js'
 import jobRouter from './routes/jobRoutes.js'
 
+
 //middleware
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
+import authMiddleware from './middleware/auth.js'
 
 if(process.env.NODE_ENV !== 'production'){
     app.use(morgan('dev'))
@@ -33,7 +35,7 @@ app.get('/api/v1', (req, res) => {
     res.json({msg:'API'})
 })
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/jobs', jobRouter)
+app.use('/api/v1/jobs', authMiddleware, jobRouter)
 
 //middleware
 app.use(notFoundMiddleware);
