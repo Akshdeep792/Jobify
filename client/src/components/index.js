@@ -6,4 +6,11 @@ import Navbar from "./Navbar";
 import SmallSidebar from "./SmallSidebar";
 import BigSidebar from "./BigSidebar";
 import SelectInput from "./UI/SelectInput"
-export {SelectInput, Logo, Input,Alert, Navbar, BigSidebar, SmallSidebar}
+import Job from "./Job";
+import JobsContainer from "./JobsContainer";
+import JobInfo from "./JobInfo";
+import SearchContainer from "./SearchContainer";
+import Loading from "./Loading";
+
+
+export {Loading, Job,JobsContainer, JobInfo, SearchContainer, SelectInput, Logo, Input,Alert, Navbar, BigSidebar, SmallSidebar}

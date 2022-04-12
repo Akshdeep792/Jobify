@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react'
+import React, { useReducer, useContext} from 'react'
 import reducer from './reducer'
 import 
 { DISPLAY_ALERT,
@@ -18,7 +18,9 @@ import
    CLEAR_VALUES,
    CREATE_JOB_BEGIN,
    CREATE_JOB_ERROR,
-   CREATE_JOB_SUCCESS
+   CREATE_JOB_SUCCESS,
+   GET_JOBS_BEGIN,
+   GET_JOBS_SUCCESS
   } from "./action"
 import axios from 'axios'
 
@@ -44,6 +46,10 @@ export const initialState = {
   jobType: 'full-time',
   statusOptions: ['pending', 'interview', 'declined'],
   status: 'pending',
+  jobs: [],
+  totalJobs: 0,
+  numOfPages: 1,
+  page: 1,
 
 }
 const AppContext = React.createContext()
@@ -198,12 +204,37 @@ const AppProvider = ({ children }) => {
     }
     clearAlert()
   }
-  
+  const getJobs = async () => {
+    let url = `/jobs`
+    dispatch({type : GET_JOBS_BEGIN});
+    try {
+      const {data} = await authFetch(url);
+      
+      const {jobs, totalJobs, numOfPages} = data;
+      dispatch ({
+        type: GET_JOBS_SUCCESS,
+        payload: {jobs, totalJobs, numOfPages}
+      })
+    } catch (error) {
+      console.log(error)
+      logoutUser();
+    }
+    clearAlert();
+  }
+  const setEditJob = (id) => {
+    console.log(`set edit job : ${id}`)
+  }
+  const deleteJob = (id) =>{
+    console.log(`delete : ${id}`)
+  }
+  // useEffect(() => {
+  //   getJobs()
+  // }, [])
   return (
     <AppContext.Provider
       value={{
         ...state, displayAlert, registerUser, loginUser, toggleSidebar, logoutUser, updateUser,
-        handleChange, clearValues, createJob
+        handleChange, clearValues, createJob, getJobs, deleteJob, setEditJob
       }}
     >
       {children}
