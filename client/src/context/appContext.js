@@ -13,7 +13,12 @@ import
    LOGOUT_USER,
    UPDATE_USER_BEGIN,
    UPDATE_USER_SUCCESS,
-   UPDATE_USER_ERROR
+   UPDATE_USER_ERROR,
+   HANDLE_CHANGE,
+   CLEAR_VALUES,
+   CREATE_JOB_BEGIN,
+   CREATE_JOB_ERROR,
+   CREATE_JOB_SUCCESS
   } from "./action"
 import axios from 'axios'
 
@@ -29,9 +34,16 @@ export const initialState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   userLocation: userLocation || '',
-  jobLocation: userLocation || '',
   showSidebar: false,
-
+  isEditing: false, 
+  editJobId:'',
+  position:'',
+  company:'',
+  jobLocation: userLocation || '',  
+  jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
+  jobType: 'full-time',
+  statusOptions: ['pending', 'interview', 'declined'],
+  status: 'pending',
 
 }
 const AppContext = React.createContext()
@@ -42,9 +54,6 @@ const AppProvider = ({ children }) => {
 
   const authFetch = axios.create({
     baseURL : '/api/v1',
-    // headers: {
-    //   Authorization : `Bearer ${state.token}`
-    // }
   })
 
   authFetch.interceptors.request.use((config) => {
@@ -161,10 +170,40 @@ const AppProvider = ({ children }) => {
     clearAlert();
   }
   
+  const handleChange = ({name, value}) => {
+    dispatch({type : HANDLE_CHANGE, payload : {name, value}})
+  }
+  const clearValues = () => {
+    dispatch({ type: CLEAR_VALUES })
+  }
+  const createJob = async () => {
+    dispatch({type: CREATE_JOB_BEGIN})
+    try{
+      const { position, company, jobLocation, jobType, status } = state;
+      await authFetch.post('/jobs', {
+        company,
+        position,
+        jobLocation,
+        jobType,
+        status,
+      })
+      dispatch({
+        type: CREATE_JOB_SUCCESS,
+      })
+      clearValues();
+    }
+    catch(error){
+      if(error.response.status === 401) return;
+      dispatch({type: CREATE_JOB_ERROR, payload : {msg : error.response.data.msg}})
+    }
+    clearAlert()
+  }
+  
   return (
     <AppContext.Provider
       value={{
-        ...state, displayAlert, registerUser, loginUser, toggleSidebar, logoutUser, updateUser
+        ...state, displayAlert, registerUser, loginUser, toggleSidebar, logoutUser, updateUser,
+        handleChange, clearValues, createJob
       }}
     >
       {children}

@@ -5,4 +5,5 @@ import Alert from "./Alert";
 import Navbar from "./Navbar";
 import SmallSidebar from "./SmallSidebar";
 import BigSidebar from "./BigSidebar";
-export {Logo, Input,Alert, Navbar, BigSidebar, SmallSidebar}
+import SelectInput from "./UI/SelectInput"
+export {SelectInput, Logo, Input,Alert, Navbar, BigSidebar, SmallSidebar}
