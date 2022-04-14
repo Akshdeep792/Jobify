@@ -14,5 +14,6 @@ import Loading from "./Loading";
 import ChartsContainer from "./ChartsContainer";
 import StatItem from "./StatItem";
 import StatsContainer from "./StatsContainer";
-
-export { ChartsContainer, StatItem,StatsContainer,Loading, Job,JobsContainer, JobInfo, SearchContainer, SelectInput, Logo, Input,Alert, Navbar, BigSidebar, SmallSidebar}
+import BarChartComponent from "./BarChart";
+import AreaChartComponent from "./AreaChart";
+export { AreaChartComponent,BarChartComponent,ChartsContainer, StatItem,StatsContainer,Loading, Job,JobsContainer, JobInfo, SearchContainer, SelectInput, Logo, Input,Alert, Navbar, BigSidebar, SmallSidebar}
