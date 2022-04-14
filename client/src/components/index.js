@@ -11,6 +11,8 @@ import JobsContainer from "./JobsContainer";
 import JobInfo from "./JobInfo";
 import SearchContainer from "./SearchContainer";
 import Loading from "./Loading";
+import ChartsContainer from "./ChartsContainer";
+import StatItem from "./StatItem";
+import StatsContainer from "./StatsContainer";
 
-
-export {Loading, Job,JobsContainer, JobInfo, SearchContainer, SelectInput, Logo, Input,Alert, Navbar, BigSidebar, SmallSidebar}
+export { ChartsContainer, StatItem,StatsContainer,Loading, Job,JobsContainer, JobInfo, SearchContainer, SelectInput, Logo, Input,Alert, Navbar, BigSidebar, SmallSidebar}
