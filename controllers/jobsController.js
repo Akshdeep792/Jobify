@@ -56,8 +56,7 @@ const createJob = async (req, res) => {
         const limit = Number(req.query.limit) || 10
         const skip = (page - 1) * limit //10
         result = result.skip(skip).limit(limit)
-        // 75
-        // 10 10 10 10 10 10 10 5
+       
         const jobs = await result
         const totalJobs = await Job.countDocuments(queryObject)
         const numOfPages = Math.ceil(totalJobs/limit)

@@ -39,4 +39,5 @@ export const SHOW_STATS_SUCCESS = 'SHOW_STATS_SUCCESS'
 
 export const CLEAR_FILTERS = 'CLEAR_FILTERS'
 
+export const CHANGE_PAGE = 'CHANGE_PAGE'
 
