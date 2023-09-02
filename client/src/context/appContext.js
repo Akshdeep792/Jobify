@@ -1,35 +1,35 @@
 import React, { useReducer, useContext } from 'react'
 import reducer from './reducer'
 import {
-DISPLAY_ALERT,
-CLEAR_ALERT,
-REGISTER_USER_BEGIN,
-REGISTER_USER_ERROR,
-REGISTER_USER_SUCCESS,
-LOGIN_USER_BEGIN,
-LOGIN_USER_SUCCESS,
-LOGIN_USER_ERROR,
-TOGGLE_SIDEBAR,
-LOGOUT_USER,
-UPDATE_USER_BEGIN,
-UPDATE_USER_SUCCESS,
-UPDATE_USER_ERROR,
-HANDLE_CHANGE,
-CLEAR_VALUES,
-CREATE_JOB_BEGIN,
-CREATE_JOB_ERROR,
-CREATE_JOB_SUCCESS,
-GET_JOBS_BEGIN,
-GET_JOBS_SUCCESS,
-SET_EDIT_JOB,
-DELETE_JOB_BEGIN,
-EDIT_JOB_BEGIN,
-EDIT_JOB_SUCCESS,
-EDIT_JOB_ERROR,
-SHOW_STATS_BEGIN,
-SHOW_STATS_SUCCESS,
-CLEAR_FILTERS,
-CHANGE_PAGE
+  DISPLAY_ALERT,
+  CLEAR_ALERT,
+  REGISTER_USER_BEGIN,
+  REGISTER_USER_ERROR,
+  REGISTER_USER_SUCCESS,
+  LOGIN_USER_BEGIN,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_ERROR,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  CREATE_JOB_BEGIN,
+  CREATE_JOB_ERROR,
+  CREATE_JOB_SUCCESS,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
+  SET_EDIT_JOB,
+  DELETE_JOB_BEGIN,
+  EDIT_JOB_BEGIN,
+  EDIT_JOB_SUCCESS,
+  EDIT_JOB_ERROR,
+  SHOW_STATS_BEGIN,
+  SHOW_STATS_SUCCESS,
+  CLEAR_FILTERS,
+  CHANGE_PAGE
 } from "./action"
 import axios from 'axios'
 
@@ -74,7 +74,7 @@ const AppProvider = ({ children }) => {
 
 
   const authFetch = axios.create({
-    baseURL: '/api/v1',
+    baseURL: 'http://localhost:4000/api/v1',
   })
 
   authFetch.interceptors.request.use((config) => {
@@ -128,7 +128,7 @@ const AppProvider = ({ children }) => {
     // console.log(currentUser);
     dispatch({ type: REGISTER_USER_BEGIN })
     try {
-      const response = await axios.post('/api/v1/auth/register', currentUser);
+      const response = await axios.post('http://localhost:4000/api/v1/auth/register', currentUser);
       // console.log(response);
       const { user, token, location } = await response.data;
       dispatch({
@@ -149,7 +149,7 @@ const AppProvider = ({ children }) => {
   const loginUser = async (currentUser) => {
     dispatch({ type: LOGIN_USER_BEGIN })
     try {
-      const response = await axios.post('/api/v1/auth/login', currentUser);
+      const response = await axios.post('http://localhost:4000/api/v1/auth/login', currentUser);
 
       const { user, token, location } = await response.data;
       dispatch({
@@ -307,7 +307,7 @@ const AppProvider = ({ children }) => {
       value={{
         ...state, displayAlert, registerUser, loginUser, toggleSidebar, logoutUser, updateUser,
         handleChange, clearValues, createJob, getJobs, deleteJob, setEditJob, editJob, showStats,
-         clearFilters, changePage
+        clearFilters, changePage
       }}
     >
       {children}

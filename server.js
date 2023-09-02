@@ -1,6 +1,7 @@
 import express from 'express'
 const app = express()
 import dotenv from 'dotenv'
+import cors from 'cors'
 import 'express-async-errors'
 import morgan from 'morgan'
 dotenv.config();
@@ -18,7 +19,14 @@ import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
 import authMiddleware from './middleware/auth.js'
 
-if(process.env.NODE_ENV !== 'production'){
+app.use(
+    cors({
+        origin: 'http://localhost:3000',
+        credentials: true,
+        optionsSuccessStatus: 200
+    })
+);
+if (process.env.NODE_ENV !== 'production') {
     app.use(morgan('dev'))
 }
 
@@ -27,12 +35,12 @@ app.use(express.json())
 
 app.get('/', (req, res) => {
 
-    res.json({msg:'Welcome!'})
+    res.json({ msg: 'Welcome!' })
 })
 
 app.get('/api/v1', (req, res) => {
 
-    res.json({msg:'API'})
+    res.json({ msg: 'API' })
 })
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/jobs', authMiddleware, jobRouter)
